@@ -16,7 +16,9 @@ table {
     -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
-
+.main td{
+    background: lightgrey;
+}
 th, td {
     padding:18px 28px 18px;
     text-align:center;

@@ -17,28 +17,6 @@ import static java.util.stream.Collectors.toList;
 
 public class MealsUtil {
 
-    public static List<MealWithExceed> getUserMealWithExceed () {
-        List<Meal> meals = Arrays.asList(
-                new Meal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500),
-                new Meal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000),
-                new Meal(LocalDateTime.of(2015, Month.MAY, 30, 20, 0), "Ужин", 500),
-                new Meal(LocalDateTime.of(2015, Month.MAY, 31, 10, 0), "Завтрак", 1000),
-                new Meal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500),
-                new Meal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510)
-        );
-        return createUserMealWithExceed(meals,2000);
-    }
-
-    private static List<MealWithExceed> createUserMealWithExceed(List<Meal> meals,int caloriesPerDay) {
-        Collection<List<Meal>> list = meals.stream()
-                .collect(Collectors.groupingBy(Meal::getDate)).values();
-
-        return list.stream().flatMap(dayMeals -> {
-            boolean exceed = dayMeals.stream().mapToInt(Meal::getCalories).sum() > caloriesPerDay;
-            return dayMeals.stream()
-                    .map(meal -> createWithExceed(meal, exceed));
-        }).collect(toList());
-    }
 
     public static List<MealWithExceed> getFilteredWithExceeded(List<Meal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
         Map<LocalDate, Integer> caloriesSumByDate = meals.stream()
@@ -113,6 +91,6 @@ public class MealsUtil {
     }
 
     public static MealWithExceed createWithExceed(Meal meal, boolean exceeded) {
-        return new MealWithExceed(meal.getDateTime(), meal.getDescription(), meal.getCalories(), exceeded);
+        return new MealWithExceed(meal.getId(),meal.getDateTime(), meal.getDescription(), meal.getCalories(), exceeded);
     }
 }

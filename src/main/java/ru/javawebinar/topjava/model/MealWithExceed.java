@@ -1,34 +1,31 @@
 package ru.javawebinar.topjava.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class MealWithExceed {
 
+
+    private long id;
     private final LocalDateTime dateTime;
-    private String timeToString;
     private final String description;
 
     private final int calories;
 
     private final boolean exceed;
 
-    public MealWithExceed(LocalDateTime dateTime, String description, int calories, boolean exceed) {
-        this.dateTime = LocalDateTime.of(dateTime.toLocalDate(),dateTime.toLocalTime());
+    public MealWithExceed(long id,LocalDateTime dateTime, String description, int calories, boolean exceed) {
+        this.id = id;
+        this.dateTime = LocalDateTime.of(dateTime.toLocalDate(), dateTime.toLocalTime());
         this.description = description;
         this.calories = calories;
         this.exceed = exceed;
-        this.timeToString = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(dateTime);
     }
-
+    public long getId() {
+        return id;
+    }
     public LocalDateTime getDateTime() {
         return dateTime;
     }
-
-    public String getTimeToString() {
-        return timeToString;
-    }
-
 
     public String getDescription() {
         return description;
