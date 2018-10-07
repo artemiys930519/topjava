@@ -11,30 +11,27 @@
 <h2>MealsList</h2>
 <table>
     <tr class="main">
-        <td>ID</td>
         <td>Time</td>
         <td>Description</td>
         <td>Calories</td>
-        <td>Exceed</td>
         <td></td>
         <td></td>
     </tr>
     <c:forEach var="meal" items="${meals}">
-        <tr>
-            <td>${meal.id}</td>
+        <c:choose>
+            <c:when test="${meal.exceed}">
+                <tr class="redexceedmeal">
+            </c:when>
+            <c:otherwise>
+                <tr class="greenexceedmeal">
+            </c:otherwise>
+        </c:choose>
             <td><fmt:parseDate  pattern="yyyy-MM-dd'T'HH:mm" value="${ meal.dateTime }" var="parsedDateTime" type="both"/>
                 <fmt:formatDate pattern="dd-MM-yyyy HH:mm" value="${ parsedDateTime }" />
             </td>
             <td>${meal.description}</td>
             <td>${meal.calories}</td>
-            <c:choose>
-                <c:when test="${meal.exceed}">
-                    <td class="redexceedmeal">${meal.exceed}</td>
-                </c:when>
-                <c:otherwise>
-                    <td class="greenexceedmeal">${meal.exceed}</td>
-                </c:otherwise>
-            </c:choose>
+
             <td><a href="meals?action=edit&mealId=<c:out value="${meal.id}"/>">Update</a></td>
             <td><a href="meals?action=delete&mealId=<c:out value="${meal.id}"/>">Delete</a></td>
         </tr>

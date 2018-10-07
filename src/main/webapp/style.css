@@ -1,13 +1,13 @@
-.redexceedmeal {
+.redexceedmeal td {
     background: red;
 }
-.greenexceedmeal {
+.greenexceedmeal td {
     background: green;
 }
 table {
     overflow:hidden;
     border:1px solid #d3d3d3;
-    background:#fefefe;
+
     width:70%;
     margin:5% auto 0;
     -moz-border-radius:5px; /* FF1+ */
@@ -47,17 +47,6 @@ td.last {
     border-right:none;
 }
 
-td {
-    background: -webkit-gradient(linear, 0% 0%, 0% 25%, from(#f9f9f9), to(#fefefe));
-}
-
-tr.odd-row td {
-    background: -webkit-gradient(linear, 0% 0%, 0% 25%, from(#f1f1f1), to(#f6f6f6));
-}
-
-th {
-    background: -webkit-gradient(linear, 0% 0%, 0% 20%, from(#ededed), to(#e8eaeb));
-}
 
 tr:first-child th.first {
     -moz-border-radius-topleft:5px;
