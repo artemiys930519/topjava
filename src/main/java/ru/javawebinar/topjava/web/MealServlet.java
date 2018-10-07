@@ -49,17 +49,11 @@ public class MealServlet extends HttpServlet {
             log.debug("delete meal operation");
             forward = mealsListUrl;
             req.setAttribute("meals", mealWithExceedCrud.getMealWithExceed());
-            delete = true;
         } else if (action.equalsIgnoreCase("insert")) {
             forward = mealUrl;
             log.debug("insert meal operation");
         }
-        if(delete) {
-            resp.sendRedirect("meals.jsp");
-            delete = false;
-        }else {
-            req.getRequestDispatcher(forward).forward(req, resp);
-        }
+        req.getRequestDispatcher(forward).forward(req, resp);
     }
 
     @Override
