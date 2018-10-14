@@ -60,11 +60,11 @@ public class MealServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String id = req.getParameter("id");
         UserMeal userMeal = new UserMeal(id.isEmpty() ? null : Integer.valueOf(id),
-                LocalDateTime.parse(req.getParameter("datetime")),
+                LocalDateTime.parse(req.getParameter("dateTime")),
                 req.getParameter("description"),
                 Integer.valueOf(req.getParameter("calories")));
         log.info(userMeal.isNew() ? "Create" : "Update");
         repository.save(userMeal);
-        resp.sendRedirect("meals");
+        resp.sendRedirect("mealList");
     }
 }

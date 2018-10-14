@@ -28,11 +28,11 @@
             </td>
             <td>${meal.description}</td>
             <td>${meal.calories}</td>
-            <td><a href="meals?action=update&mealId=<c:out value="${meal.id}"/>">Update</a></td>
-            <td><a href="meals?action=delete&mealId=<c:out value="${meal.id}"/>">Delete</a></td>
+            <td><a href="mealList?action=update&id=${meal.id}">Update</a></td>
+            <td><a href="mealList?action=delete&id=${meal.id}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
-<p><a href="meals?action=create">Add User</a></p>
+<p><a href="mealList?action=create">Add User</a></p>
 </body>
 </html>

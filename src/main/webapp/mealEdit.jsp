@@ -14,7 +14,7 @@
 <jsp:useBean id="meal" scope="request" type="ru.javawebinar.topjava.model.UserMeal"/>
     <fmt:parseDate  pattern="yyyy-MM-dd'T'HH:mm" value="${ userMeal.dateTime }" var="parsedDateTime" type="both"/>
 
-    <form method="POST" action="meals">
+    <form method="POST" action="mealList">
         <input type="hidden" name="id" value="${meal.id}">
         <dl>
             <dt>DateTime: </dt>
