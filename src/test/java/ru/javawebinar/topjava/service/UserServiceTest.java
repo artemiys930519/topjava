@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import static ru.javawebinar.topjava.UserTestData.*;
+import static ru.javawebinar.topjava.UserTestData.assertMatch;
 
 @ContextConfiguration({
         "classpath:spring-test/spring-app-test.xml",
@@ -89,6 +90,6 @@ public class UserServiceTest {
     @Test
     public void getAll() throws Exception {
         List<User> all = service.getAll();
-        assertMatch(all, ADMIN, USER);
+        assertMatch( all, ADMIN, USER);
     }
 }
