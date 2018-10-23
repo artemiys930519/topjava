@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class MealServlet extends HttpServlet {
@@ -25,6 +26,7 @@ public class MealServlet extends HttpServlet {
         super.init(config);
         springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
         mealController = springContext.getBean(MealRestController.class);
+        System.out.println("Bean definition names: " + Arrays.toString(springContext.getBeanDefinitionNames()));
     }
 
     @Override
