@@ -2,7 +2,6 @@ package ru.javawebinar.topjava.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,21 +17,14 @@ import java.util.Date;
 import java.util.List;
 
 import static ru.javawebinar.topjava.UserTestData.*;
-import static ru.javawebinar.topjava.UserTestData.assertMatch;
 
 @ContextConfiguration({
-        "classpath:spring-test/spring-app-test.xml",
+        "classpath:spring/spring-app.xml",
         "classpath:spring/spring-db.xml"
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class UserServiceTest {
-
-    static {
-        // Only for postgres driver logging
-        // It uses java.util.logging and logged via jul-to-slf4j bridge
-        SLF4JBridgeHandler.install();
-    }
 
     @Autowired
     private UserService service;
@@ -90,6 +82,6 @@ public class UserServiceTest {
     @Test
     public void getAll() throws Exception {
         List<User> all = service.getAll();
-        assertMatch( all, ADMIN, USER);
+        assertMatch(all, ADMIN, USER);
     }
 }

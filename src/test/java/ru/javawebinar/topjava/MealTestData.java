@@ -4,6 +4,10 @@ import ru.javawebinar.topjava.model.AbstractBaseEntity;
 import ru.javawebinar.topjava.model.Meal;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MealTestData {
     private static final Integer USERMEALID = AbstractBaseEntity.START_SEQ + 2;
@@ -19,4 +23,18 @@ public class MealTestData {
     public static final Meal MEAL8 = new Meal(ADMINMEALID + 1, LocalDateTime.of(2015, 05, 30, 10, 00), "Обед", 510);
     public static final Meal MEAL9 = new Meal(ADMINMEALID + 2, LocalDateTime.of(2015, 05, 30, 10, 00), "Ужин", 510);
 
+    public static List<Meal> userMeal = Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
+    public static List<Meal> adminMeal = Arrays.asList(MEAL9, MEAL8, MEAL7);
+
+    public static void assertMatch(Meal actual, Meal expected) {
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    public static void assertMatch(Iterable<Meal> actual, Meal... expected) {
+        assertMatch(actual, Arrays.asList(expected));
+    }
+
+    public static void assertMatch(Iterable<Meal> actual, Iterable<Meal> expected) {
+        assertThat(actual).isEqualTo(expected);
+    }
 }
