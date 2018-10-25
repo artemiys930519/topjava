@@ -26,7 +26,6 @@ public class MealServlet extends HttpServlet {
         super.init(config);
         springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
         mealController = springContext.getBean(MealRestController.class);
-        System.out.println("Bean definition names: " + Arrays.toString(springContext.getBeanDefinitionNames()));
     }
 
     @Override

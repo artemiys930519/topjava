@@ -27,71 +27,71 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 public class MealServiceImplTest {
 
     @Autowired
-    private MealService mealRepository;
+    private MealService mealService;
 
     @Test
     public void getUserMeal() {
-        Meal meal1 = mealRepository.get(MEAL1.getId(), USER_ID);
-        assertMatch(MEAL1, meal1);
+        Meal meal1 = mealService.get(MEAL1.getId(), USER_ID);
+        assertMatch(meal1, MEAL1);
     }
 
     @Test
     public void getAdminMeal() {
-        Meal meal7 = mealRepository.get(MEAL7.getId(), ADMIN_ID);
+        Meal meal7 = mealService.get(MEAL7.getId(), ADMIN_ID);
         assertMatch(MEAL7, meal7);
     }
 
     @Test(expected = NotFoundException.class)
     public void getAlientMeal() {
-        mealRepository.get(MEAL1.getId(), ADMIN_ID);
+        mealService.get(ADMIN_ID, MEAL1.getId());
     }
 
     @Test(expected = NotFoundException.class)
     public void deleteAlientMeal() {
-        mealRepository.delete(MEAL1.getId(), ADMIN_ID);
+        mealService.delete(MEAL1.getId(), ADMIN_ID);
     }
 
     @Test(expected = NotFoundException.class)
     public void updateAlientMeal() {
-        mealRepository.update(MEAL1, ADMIN_ID);
+        mealService.update(MEAL1, ADMIN_ID);
     }
 
     @Test
     public void delete() {
-        mealRepository.delete(MEAL9.getId(), ADMIN_ID);
-        assertMatch(Arrays.asList(MEAL8, MEAL7), mealRepository.getAll(ADMIN_ID));
+        mealService.delete(MEAL9.getId(), ADMIN_ID);
+        assertMatch(Arrays.asList(MEAL8, MEAL7), mealService.getAll(ADMIN_ID));
     }
 
     @Test
     public void getBetweenDateTimes() {
-        List<Meal> allBetween = mealRepository.getBetweenDateTimes(LocalDateTime.of(2015, 05, 29, 12, 00), LocalDateTime.of(2015, 05, 30, 21, 00), USER_ID);
+        List<Meal> allBetween = mealService.getBetweenDateTimes(LocalDateTime.of(2015, 05, 29, 12, 00), LocalDateTime.of(2015, 05, 30, 21, 00), USER_ID);
         assertMatch(Arrays.asList(MEAL1, MEAL2, MEAL3), allBetween);
     }
 
     @Test
     public void getAllAdminMeal() {
-        List<Meal> all = mealRepository.getAll(ADMIN_ID);
-        assertMatch(all, adminMeal);
+        List<Meal> all = mealService.getAll(ADMIN_ID);
+        assertMatch(adminMeal, all);
     }
 
     @Test
     public void getAllUserMeal() {
-        List<Meal> all = mealRepository.getAll(USER_ID);
-        assertMatch(all, userMeal);
+        List<Meal> all = mealService.getAll(USER_ID);
+        assertMatch(userMeal, all);
     }
 
     @Test
     public void update() {
         Meal meal = new Meal(MEAL1.getId(), MEAL1.getDateTime(), MEAL1.getDescription(), MEAL1.getCalories());
         meal.setDescription("breakfast");
-        mealRepository.update(meal, USER_ID);
-        assertMatch(meal, mealRepository.get(MEAL1.getId(), USER_ID));
+        mealService.update(meal, USER_ID);
+        assertMatch(mealService.get(MEAL1.getId(), USER_ID), meal);
     }
 
     @Test
     public void create() {
         Meal newMeal = new Meal(LocalDateTime.now(), "breakfast", 500);
-        mealRepository.create(newMeal, USER_ID);
-        assertMatch(newMeal, mealRepository.get(newMeal.getId(), USER_ID));
+        mealService.create(newMeal, USER_ID);
+        assertMatch(mealService.get(newMeal.getId(), USER_ID), newMeal);
     }
 }
