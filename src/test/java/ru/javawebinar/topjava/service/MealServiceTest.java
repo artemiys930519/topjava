@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.service;
 
 import org.junit.*;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MealServiceTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Rule
     public CommonRule rule = new CommonRule();
@@ -70,6 +74,7 @@ public class MealServiceTest {
 
     @Test(expected = NotFoundException.class)
     public void getNotFound() {
+        thrown.expect(NotFoundException.class);
         service.get(MEAL1_ID, ADMIN_ID);
     }
 
@@ -82,6 +87,7 @@ public class MealServiceTest {
 
     @Test(expected = NotFoundException.class)
     public void updateNotFound() {
+        thrown.expect(NotFoundException.class);
         service.update(MEAL1, ADMIN_ID);
     }
 
