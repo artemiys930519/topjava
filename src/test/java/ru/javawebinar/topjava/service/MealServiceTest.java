@@ -1,21 +1,31 @@
 package ru.javawebinar.topjava.service;
 
-import org.junit.*;
+import ch.qos.logback.core.util.TimeUtil;
+import org.junit.AfterClass;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.rules.Stopwatch;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ru.javawebinar.topjava.CommonRule;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
@@ -29,23 +39,31 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MealServiceTest {
 
+    private static Logger log = LoggerFactory.getLogger(MealServiceTest.class);
+
+    @Autowired
+    private MealService service;
+    private static Map<String, Long> testMap = new HashMap<>();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Rule
-    public CommonRule rule = new CommonRule();
-
+    public Stopwatch watch = new Stopwatch() {
+        @Override
+        protected void finished(long nanos, Description description) {
+            long time = TimeUnit.MILLISECONDS.convert(nanos,TimeUnit.NANOSECONDS);
+            testMap.put(description.getMethodName(),time);
+            log.info("MethodName: " + description.getMethodName()
+                    + " test Time - " + time + " ms.");
+        }
+    };
     static {
         SLF4JBridgeHandler.install();
     }
-
-    @Autowired
-    private MealService service;
-
     @AfterClass
     public static void testStatistic() {
-        for(Map.Entry<Long,String> map: CommonRule.testMap.entrySet()) {
-            System.out.println("Время выполнения: " + map.getValue()+ " - " + map.getKey() + " ms.");
+        for(Map.Entry<String,Long> map: testMap.entrySet()) {
+            log.info(map.getKey() + " - " + map.getValue() + " ms.");
         }
     }
     @Test
@@ -74,8 +92,8 @@ public class MealServiceTest {
 
     @Test(expected = NotFoundException.class)
     public void getNotFound() {
-        thrown.expect(NotFoundException.class);
         service.get(MEAL1_ID, ADMIN_ID);
+        thrown.expect(NotFoundException.class);
     }
 
     @Test
@@ -87,8 +105,8 @@ public class MealServiceTest {
 
     @Test(expected = NotFoundException.class)
     public void updateNotFound() {
-        thrown.expect(NotFoundException.class);
         service.update(MEAL1, ADMIN_ID);
+        thrown.expect(NotFoundException.class);
     }
 
     @Test
