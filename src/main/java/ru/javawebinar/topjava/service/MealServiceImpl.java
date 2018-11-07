@@ -12,6 +12,7 @@ import ru.javawebinar.topjava.repository.MealRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFound;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -57,9 +58,8 @@ public class MealServiceImpl implements MealService {
         return repository.save(meal, userId);
     }
 
-    @Transactional
     @Override
     public Meal getWithUser(int id, int userId) {
-        return repository.getWithUser(id,userId);
+        return checkNotFoundWithId(repository.getWithUser(id, userId), id);
     }
 }

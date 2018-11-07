@@ -1,11 +1,5 @@
 package ru.javawebinar.topjava.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;

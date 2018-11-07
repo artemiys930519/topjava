@@ -20,7 +20,7 @@
 
     <!-- Choose profile from (hsqldb, postgres) and (jdbc,datajpa,jpa) -->
 
-    <tx:annotation-driven/>
+
 
     <beans profile="hsqldb">
         <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
@@ -86,7 +86,7 @@
         <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
         <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
               p:entityManagerFactory-ref="entityManagerFactory"/>
-
+        <tx:annotation-driven/>
     </beans>
 
     <beans profile="jpa">

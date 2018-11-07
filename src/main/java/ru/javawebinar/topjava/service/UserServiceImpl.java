@@ -56,9 +56,8 @@ public class UserServiceImpl implements UserService {
         checkNotFoundWithId(repository.save(user), user.getId());
     }
 
-    @Transactional
     @Override
     public User getWithMeals(int userId) {
-        return repository.getWithMeal(userId);
+        return checkNotFound(repository.getWithMeal(userId),"user is not found");
     }
 }

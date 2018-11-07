@@ -41,8 +41,6 @@ public abstract class AbstractMealServiceTest {
     private static final Logger log = getLogger("result");
 
     private static StringBuilder results = new StringBuilder();
-    @Autowired
-    private CacheManager cacheManager;
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -56,11 +54,6 @@ public abstract class AbstractMealServiceTest {
             log.info(result + " ms\n");
         }
     };
-
-    @Before
-    public void setUp() throws Exception {
-        cacheManager.getCache("users").clear();
-    }
 
     static {
         // needed only for java.util.logging (postgres driver)
