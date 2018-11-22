@@ -59,7 +59,7 @@
                 <th></th>
                 <th></th>
             </tr>
-
+            </thead>
             </td>
             <td>${meal.description}</td>
             <td>${meal.calories}</td>
