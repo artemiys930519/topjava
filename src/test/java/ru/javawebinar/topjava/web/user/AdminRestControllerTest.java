@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.javawebinar.topjava.TestUtil.readFromJson;
 import static ru.javawebinar.topjava.UserTestData.*;
+import static ru.javawebinar.topjava.UserTestData.contentJson;
 
 class AdminRestControllerTest extends AbstractControllerTest {
 
@@ -36,6 +37,7 @@ class AdminRestControllerTest extends AbstractControllerTest {
     void testGetByEmail() throws Exception {
         mockMvc.perform(get(REST_URL + "by?email=" + USER.getEmail()))
                 .andExpect(status().isOk())
+                .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(USER));
     }
