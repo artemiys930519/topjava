@@ -48,7 +48,7 @@ public class MealTo {
         if (o == null || getClass() != o.getClass()) return false;
         MealTo that = (MealTo) o;
         return calories == that.calories &&
-                excess == that.excess &&
+                exceed == that.exceed &&
                 Objects.equals(id, that.id) &&
                 Objects.equals(dateTime, that.dateTime) &&
                 Objects.equals(description, that.description);
@@ -56,7 +56,7 @@ public class MealTo {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateTime, description, calories, excess);
+        return Objects.hash(id, dateTime, description, calories, exceed);
     }
 
     @Override
