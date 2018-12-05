@@ -6,9 +6,9 @@ import java.util.Objects;
 public class MealTo {
     private Integer id;
     private final LocalDateTime dateTime;
-    private final String description;
+    private String description;
 
-    private final int calories;
+    private int calories;
 
     private final boolean exceed;
 
