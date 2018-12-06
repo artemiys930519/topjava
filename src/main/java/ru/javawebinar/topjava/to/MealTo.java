@@ -22,7 +22,7 @@ public class MealTo extends BaseTo {
         this.calories = calories;
         this.exceed = exceed;
     }
-    public long getId() {
+    public Integer getId() {
         return id;
     }
     public LocalDateTime getDateTime() {
