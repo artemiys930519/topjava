@@ -3,8 +3,7 @@ package ru.javawebinar.topjava.to;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class MealTo {
-    private Integer id;
+public class MealTo extends BaseTo {
     private final LocalDateTime dateTime;
     private String description;
 
