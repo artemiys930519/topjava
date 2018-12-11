@@ -18,6 +18,9 @@ public class MealsUtil {
     private MealsUtil() {
     }
 
+    public static Meal creatFromMealTo(MealTo mealTo) {
+        return new Meal(mealTo.getDateTime(),mealTo.getDescription(),mealTo.getCalories());
+    }
     public static List<MealTo> getWithExcess(Collection<Meal> meals, int caloriesPerDay) {
         return getFilteredWithExcess(meals, caloriesPerDay, meal -> true);
     }
